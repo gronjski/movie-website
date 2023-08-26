@@ -1,9 +1,8 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyASuFXa8t46iuWcugPH77HRobGHQJZS084",
-    authDomain: "advanced-web-project-154af.firebaseapp.com",
-    projectId: "advanced-web-project-154af",
-    storageBucket: "advanced-web-project-154af.appspot.com",
-    messagingSenderId: "873018450200",
-    appId: "1:873018450200:web:1135d682d77d2e95e03e6d",
-    measurementId: "G-SN1B98JTNX"
-  };
+  apiKey: "AIzaSyCQjX_IJf7kTVMb7WX1mh0K26wH_S5V8Yw",
+  authDomain: "movie-website-27b70.firebaseapp.com",
+  projectId: "movie-website-27b70",
+  storageBucket: "movie-website-27b70.appspot.com",
+  messagingSenderId: "1038341249789",
+  appId: "1:1038341249789:web:40348f08232ab09d9f3c94"
+};

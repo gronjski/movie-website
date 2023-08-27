@@ -1,6 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card'
+
 import { ReviewForm } from '../Components/ReviewForm';
 
 import { useParams } from 'react-router-dom';
@@ -14,8 +16,6 @@ import { FBAuthContext } from '../contexts/FBAuthContext';
 import { doc, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from 'firebase/auth';
-
-import '../styles/Detail.css'
 
 export function Detail ( props ) {
     const [movieData, setMovieData] = useState()
@@ -62,24 +62,29 @@ export function Detail ( props ) {
         getDownloadURL( imgRef).then ( (url ) => setImgPath (url))
     
         return (
-            <img src={imgPath} alt= 'This the the iamge of the movie poster' className='image'/>
+            <img src={imgPath} alt= 'This the the iamge of the movie poster' className='img-fluid'/>
         )
     }
 
     if (movieData) {
         return (
             <Container>
-                <Row>
-                    <Col md="2">
+                <Row className='my-3'>
+                    <Col md="4">
                         <Image path={movieData.image} />                    
                     </Col>
-                    <Col>
-                        <h2 className='title'>{movieData.title}</h2>
-                        <h3 className='synopsis'>{movieData.synopsis}</h3>
+                    <Col md="8">
+                        <h2>{movieData.title}</h2>
+                        <h4>Cast: {movieData.cast}</h4>
+                        <p>Genre:{movieData.genre}</p>
+                        <p>Director: {movieData.director}</p>
+                        <p>Producer: {movieData.producer}</p>
+                        <p>{movieData.synopsis}</p>
+                        <p>IMDB: {movieData.imdb}</p>
                     </Col>
                 </Row>
                 <Row>
-                    <Col md = "2">
+                    <Col md = "4">
                     <ReviewForm user={auth}/>
                     </Col>
                 </Row>

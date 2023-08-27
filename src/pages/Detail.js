@@ -13,7 +13,7 @@ import { FBStorageContext } from '../contexts/FBStorageContext';
 import { AuthContext } from '../contexts/AuthContext';
 import { FBAuthContext } from '../contexts/FBAuthContext';
 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, addDoc, collection } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -56,6 +56,13 @@ export function Detail ( props ) {
         }
     })
 
+      // funciton to handle review submission
+      const ReviewHandler = async ( reviewData ) => {
+        //create a document inside firestore
+        const path =`movies/${movieId}/reviews`
+        const review = await addDoc ( collection(FBDb, path), reviewData )
+      }
+
     const Image = (props) => {
         const [imgPath,setImgPath] = useState()
         const imgRef = ref( FBStorage, `movie_poster/${ props.path}`)
@@ -76,7 +83,7 @@ export function Detail ( props ) {
                     <Col md="8">
                         <h2>{movieData.title}</h2>
                         <h4>Cast: {movieData.cast}</h4>
-                        <p>Genre:{movieData.genre}</p>
+                        <p>Genre: {movieData.genre}</p>
                         <p>Director: {movieData.director}</p>
                         <p>Producer: {movieData.producer}</p>
                         <p>{movieData.synopsis}</p>

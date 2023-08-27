@@ -7,7 +7,7 @@ export function Header ( props ) {
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
                 <Navbar.Brand>
-                    Bookworm.com.au
+                    filmster.com.au
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="main-nav" />
                 <Navbar.Collapse id="main-nav">

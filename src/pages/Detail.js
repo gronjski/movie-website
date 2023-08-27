@@ -92,7 +92,7 @@ export function Detail ( props ) {
                 </Row>
                 <Row>
                     <Col md = "4">
-                    <ReviewForm user={auth}/>
+                    <ReviewForm user={auth} handler={ReviewHandler}/>
                     </Col>
                 </Row>
             </Container>

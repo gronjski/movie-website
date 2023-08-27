@@ -16,51 +16,51 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import '../styles/Detail.css'
 
 export function Detail ( props ) {
-    const [bookData, setBookData] = useState()
+    const [movieData, setMovieData] = useState()
 
-    let { bookId } = useParams()
+    let { movieId } = useParams()
 
     const FBDb = useContext(FBDbContext)
     const FBStorage = useContext(FBStorageContext)
 
-    const bookRef = doc(FBDb, "books", bookId)
+    const movieRef = doc(FBDb, "movies", movieId)
 
-    const getBook = async (id) => {
-        let book = await getDoc(bookRef)
-        if (book.exists()) {
-            setBookData(book.data())
+    const getMovie = async (id) => {
+        let movie = await getDoc(movieRef)
+        if (movie.exists()) {
+            setMovieData(movie.data())
         }
         else {
-        // no book exists with the ID
+        // no movie exists with the ID
         }
   }
 
     useEffect(() => {
-        if (!bookData) {
-        getBook(bookId)
+        if (!movieData) {
+        getMovie(movieId)
         }
     })
 
     const Image = (props) => {
         const [imgPath,setImgPath] = useState()
-        const imgRef = ref( FBStorage, `book_cover/${ props.path}`)
+        const imgRef = ref( FBStorage, `movie_poster/${ props.path}`)
         getDownloadURL( imgRef).then ( (url ) => setImgPath (url))
     
         return (
-            <img src={imgPath} alt= 'This the the iamge of the book cover' className='image'/>
+            <img src={imgPath} alt= 'This the the iamge of the movie poster' className='image'/>
         )
     }
 
-    if (bookData) {
+    if (movieData) {
         return (
             <Container>
                 <Row>
                     <Col md="2">
-                        <Image path={bookData.image} />                    
+                        <Image path={movieData.image} />                    
                     </Col>
                     <Col>
-                        <h2 className='title'>{bookData.title}</h2>
-                        <h3 className='summary'>{bookData.summary}</h3>
+                        <h2 className='title'>{movieData.title}</h2>
+                        <h3 className='synopsis'>{movieData.synopsis}</h3>
                     </Col>
                 </Row>
                 <Row>

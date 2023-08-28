@@ -20,7 +20,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 export function Detail ( props ) {
     const [movieData, setMovieData] = useState()
     const [auth, setAuth] = useState()
-    const [movieReviews, setMovieReviews ] = useState ([])
+    const [movieReviews, setMovieReviews] = useState ([])
 
     let { movieId } = useParams()
 
@@ -50,6 +50,24 @@ export function Detail ( props ) {
       })
       setMovieReviews( reviews )
     }
+
+    // reviews collection
+    const ReviewCollection = movieReviews.map((item) => {
+      return (
+        <Col md="3">
+          <Card>
+            <Card.Body>
+              <Card.Title>
+                <h5>{item.title}</h5>
+              </Card.Title>
+              <Card.Text>
+                <p>{item.content}</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      )
+    })
     
     const movieRef = doc(FBDb, "movies", movieId)
 
@@ -111,6 +129,7 @@ export function Detail ( props ) {
                 </Row>
                 <Row>
                   {/* reviews to appear here */}
+                  {ReviewCollection}
                 </Row>
             </Container>
         )

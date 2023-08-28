@@ -13,13 +13,14 @@ import { FBStorageContext } from '../contexts/FBStorageContext';
 import { AuthContext } from '../contexts/AuthContext';
 import { FBAuthContext } from '../contexts/FBAuthContext';
 
-import { doc, getDoc, addDoc, collection } from "firebase/firestore";
+import { doc, getDoc, addDoc, collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from 'firebase/auth';
 
 export function Detail ( props ) {
     const [movieData, setMovieData] = useState()
     const [auth, setAuth] = useState()
+    const [movieReviews, setMovieReviews ] = useState ([])
 
     let { movieId } = useParams()
 
@@ -38,12 +39,25 @@ export function Detail ( props ) {
       }
     })
 
+    const getReviews = async () => {
+      const path = `movies/${movieId}/reviews`
+      const querySnapshot = await getDocs( collection(FBDb, path) )
+      let reviews = []
+      querySnapshot.forEach( (item) => {
+        let review = item.data()
+        review.id = item.id
+        reviews.push( review )
+      })
+      setMovieReviews( reviews )
+    }
+    
     const movieRef = doc(FBDb, "movies", movieId)
 
     const getMovie = async (id) => {
         let movie = await getDoc(movieRef)
         if (movie.exists()) {
             setMovieData(movie.data())
+            getReviews ()
         }
         else {
         // no movie exists with the ID
@@ -94,6 +108,9 @@ export function Detail ( props ) {
                     <Col md = "4">
                     <ReviewForm user={auth} handler={ReviewHandler}/>
                     </Col>
+                </Row>
+                <Row>
+                  {/* reviews to appear here */}
                 </Row>
             </Container>
         )

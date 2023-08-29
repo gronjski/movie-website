@@ -125,7 +125,7 @@ export function Detail ( props ) {
                         <p>IMDB: {movieData.imdb}</p>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="my-3">
                     <Col md = "4">
                     <ReviewForm user={auth} handler={ReviewHandler}/>
                     </Col>

@@ -1,16 +1,31 @@
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 
 export function ReviewForm( props ) {
   const [ stars, setStars] = useState (5)
+  const [ submitted, setSubmitted ] = useState (false)
 
   const SubmitHandler = ( event ) => {
     event.preventDefault()
+    setSubmitted(true)
     const data = new FormData(event.target)
     const reviewTitle = data.get("title")
     const reviewBody = data.get("body")
-    props.handler( {title: reviewTitle, content: reviewBody })
+    const reviewStars = data.get ("stars")
+    props.handler( {title: reviewTitle, content: reviewBody, stars: reviewStars })
+  }
+
+  const SubmitAlert = ( props ) => {
+    if ( props.show ) {
+      return(
+        <Alert variant ='success'>Thanks for your review</Alert>
+      )
+    }
+    else {
+      return null
+    }
   }
 
   if( props.user ) {
@@ -31,7 +46,8 @@ export function ReviewForm( props ) {
           <Form.Label>Review Body</Form.Label>
           <Form.Control as="textarea" rows={3} name="body" placeholder='Write your review here...' />
         </Form.Group>
-        <Button type="submit" variant="primary">Add Review</Button>
+        <Button type="submit" variant="primary" disabled= { (submitted)? true : false}>Add Review</Button>
+        <SubmitAlert show={ submitted } />
       </Form>
     )
   }

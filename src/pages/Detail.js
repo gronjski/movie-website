@@ -111,7 +111,7 @@ export function Detail ( props ) {
     if (movieData) {
         return (
             <Container>
-                <Row className='my-3'>
+                <Row className="my-3">
                     <Col md="4">
                         <Image path={movieData.image} />                    
                     </Col>
@@ -126,7 +126,7 @@ export function Detail ( props ) {
                     </Col>
                 </Row>
                 <Row className="my-3">
-                    <Col md = "4">
+                    <Col md = "6">
                     <ReviewForm user={auth} handler={ReviewHandler}/>
                     </Col>
                 </Row>

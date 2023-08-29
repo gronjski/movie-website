@@ -14,9 +14,20 @@ export function Signup (props) {
     const [ password, setPassword ] = useState("")
     const [ validEmail, setValidEmail ] = useState(false)
     const [ validPassword, setValidPassword ] = useState( false )
+    const [ username, setUserName ] = useState("")
+    const [ validUserName, setValidUserName ] = useState( false )
 
     const FBAuth = useContext( FBAuthContext)
     const navigate = useNavigate ()
+
+    const allowedChars = Array.from( "abcdefghijklmnopqrstuvwxyz1234567890_" )
+
+    useEffect( () => {
+      // check if username is made of allowedChars
+      // check if username does not exist in Firebase
+      // if both are true then allow signup
+      // else do not allow signup
+    }, [username])
     
     useEffect( () => {
         if( email.indexOf('@') > 0 ){
@@ -36,7 +47,7 @@ export function Signup (props) {
         }
     }, [password])
 
-    const SignOutHandler = () => {
+    const SignUpHandler = () => {
         createUserWithEmailAndPassword( FBAuth, email, password )
         .then ( ( user ) => {
             // user is created in Firebase
@@ -55,9 +66,19 @@ export function Signup (props) {
                 <Col md = {{span: 4, offset:4}}>
                     <Form onSubmit={ (evt) => {
                         evt.preventDefault ()
-                        SignOutHandler()
+                        SignUpHandler()
                         } }>
                         <h3>Sign up for an account</h3>
+                        {/* input for username */}
+                        <Form.Group>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="unique username"
+                                onChange={(evt) => setUserName(evt.target.value)}
+                                value={username}
+                            />
+                        </Form.Group>
                         <Form.Group>
                             <Form.Label>Email address</Form.Label>
                             <Form.Control 

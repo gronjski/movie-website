@@ -24,6 +24,7 @@ import { NavContext } from './contexts/NavContext';
 import { FBAuthContext } from './contexts/FBAuthContext';
 import { FBDbContext } from './contexts/FBDbContext';
 import { FBStorageContext } from './contexts/FBStorageContext';
+import { Search } from './pages/Search';
 
 const FirebaseApp = initializeApp(firebaseConfig)
 const FirebaseAuth = getAuth (FirebaseApp)
@@ -43,7 +44,8 @@ const AuthNavRoutes = [
   {name: "About", goto: "/about"},
   {name: "Contact", goto: "/contact"},
   {name: "Profile", goto: "/profile"},
-  {name: "Sign out", goto: "/signout"}
+  {name: "Sign out", goto: "/signout"},
+  {name: "Search", goto: "/search"}
 ]
 
 function App() {
@@ -76,6 +78,7 @@ function App() {
             <Route path="/contact" element={ <Contact/> } />
             <Route path="/signup" element={ <Signup/> } />
             <Route path="/signin" element={ <Signin/> } />
+            <Route path="/search" element={ <Search/>} />
             <Route path="/signout" element={ <Signout/>} />
             <Route path="/detail/:movieId" element={ <Detail/>} />
         </Routes>

@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    background-color: rgb(214, 226, 235);
+    max-width: 1250px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.input, .label {
+    margin: 5px;
+    padding: 2px;
+}
+.button {
+    background-color: #0a3a72; /* Earth Green #3a4e3b*/
+    border: none;
+    color: white;
+    padding: 14px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 190px;
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -64,7 +64,7 @@ const Columns = data.map( (movie, key) => {
 })
 
     return (
-        <Container>
+        <Container className='home'>
             <Row>
                 {Columns}
             </Row>

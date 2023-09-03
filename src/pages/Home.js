@@ -56,6 +56,7 @@ const Columns = data.map( (movie, key) => {
                 <Image path= {movie.image}/>
                 <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{movie.genre}</Card.Subtitle>
                 </Card.Body>
                 <a href= {"/detail/"+movie.id} className='card-link'></a>
             </Card>

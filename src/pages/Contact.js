@@ -3,9 +3,9 @@ export function Contact () {
         <div className="body">
             <h1>Contact Us</h1>
             <p>Thank you for your interest in reaching out to Filmster. We value your feedback, questions, and suggestions, and we're here to assist you in any way we can. Below are the various methods you can use to get in touch with us.</p>
-            <h2>General Inquiries</h2>
+            <h3>General Inquiries</h3>
             <p>If you have general questions or feedback about Filmster, please feel free to reach out to us at <b>info@filmster.com</b></p>
-            <h2>Connect with us on Socials</h2>
+            <h3>Socials</h3>
             <ul>
                 <li><b>Facebook</b>: FilsmterOfficial</li>
                 <li><b>X</b>: @FilmsterX</li>

@@ -18,6 +18,7 @@ import { Detail } from './pages/Detail';
 // components
 import { Header } from './Components/Header';
 import {Routes, Route} from 'react-router-dom';
+import Footer from './Components/Footer';
 // contexts
 import { NavContext } from './contexts/NavContext';
 import { FBAuthContext } from './contexts/FBAuthContext';
@@ -81,6 +82,7 @@ function App() {
       </FBStorageContext.Provider>
       </FBDbContext.Provider>
       </FBAuthContext.Provider>
+      <Footer />
     </div>
   );
 }

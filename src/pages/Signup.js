@@ -59,7 +59,7 @@ export function Signup (props) {
       const chars = Array.from(username)
       chars.forEach((chr) => {
         if (allowedChars.includes(chr) === false) {
-          IllegalChars.push (chr)
+          illegalChars.push (chr)
         }
       })
       // check if username does not exist in Firebase if the other two checks are true

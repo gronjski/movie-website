@@ -14,7 +14,8 @@ export function ReviewForm( props ) {
     const reviewTitle = data.get("title")
     const reviewBody = data.get("body")
     const reviewStars = data.get ("stars")
-    props.handler( {title: reviewTitle, content: reviewBody, stars: reviewStars })
+    const reviewUserId = data.get("uid")
+    props.handler( {title: reviewTitle, content: reviewBody, stars: reviewStars, userid: reviewUserId })
   }
 
   const SubmitAlert = ( props ) => {
@@ -28,7 +29,7 @@ export function ReviewForm( props ) {
     }
   }
 
-  if( props.user ) {
+  if( props.user && props.reviewed === false ) {
     return(
       <Form onSubmit={ SubmitHandler}>
         <h4>Add a review for this movie</h4>
@@ -46,6 +47,7 @@ export function ReviewForm( props ) {
           <Form.Label>Review Body</Form.Label>
           <Form.Control as="textarea" rows={3} name="body" placeholder='Write your review here...' />
         </Form.Group>
+        <Form.Control type="hidden" name="uid" value={props.user.uid} />
         <Button type="submit" variant="primary" disabled= { (submitted)? true : false}>Add Review</Button>
         <SubmitAlert show={ submitted } />
       </Form>

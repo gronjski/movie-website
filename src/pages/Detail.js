@@ -21,6 +21,7 @@ export function Detail ( props ) {
     const [movieData, setMovieData] = useState()
     const [auth, setAuth] = useState()
     const [movieReviews, setMovieReviews] = useState ([])
+    const [reviewed, setReviewed ] = useState ( false )
 
     let { movieId } = useParams()
 
@@ -47,6 +48,9 @@ export function Detail ( props ) {
         let review = item.data()
         review.id = item.id
         reviews.push( review )
+        if( review.userid === auth.uid ) {
+          setReviewed(true)
+        }
       })
       setMovieReviews( reviews )
     }
@@ -127,7 +131,7 @@ export function Detail ( props ) {
                 </Row>
                 <Row className="my-3">
                     <Col md = "6">
-                    <ReviewForm user={auth} handler={ReviewHandler}/>
+                    <ReviewForm user={auth} handler={ReviewHandler} reviewed={reviewed} />
                     </Col>
                 </Row>
                 <Row>

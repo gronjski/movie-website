@@ -19,6 +19,8 @@ export function Signup(props) {
     const [username, setUserName] = useState("")
     const [validUserName, setValidUserName] = useState(false)
     const [userNameFeedback, setUserNameFeedback] = useState()
+    const [errorMessage, setErrorMessage] = useState("")
+    const [isSubmitClicked, setIsSubmitClicked] = useState(false)
 
     const FBAuth = useContext(FBAuthContext)
     const FBDb = useContext(FBDbContext)
@@ -34,8 +36,8 @@ export function Signup(props) {
         if (docSnap.exists()) {
             //user already exists
             // console.log("exists")
-            setUserNameFeedback("username is already taken")
             setValidUserName(false)
+            setUserNameFeedback("username is already taken")
         }
         else {
             // user doesn't exist
@@ -66,7 +68,12 @@ export function Signup(props) {
       if (userLength === true && illegalChars.length === 0) {
         clearTimeout(timer)
         timer = setTimeout(() => { checkUser(username) }, 1500)
-      }     
+      }
+      else {
+        // User is not valid
+        setValidUserName(false)
+        setUserNameFeedback("Invalid username")
+        }     
     }, [username])
     
     useEffect(() => {
@@ -94,6 +101,7 @@ export function Signup(props) {
       }
 
     const SignUpHandler = () => {
+        setIsSubmitClicked(true)
         createUserWithEmailAndPassword(FBAuth, email, password)
         .then ((user) => {
             // user is created in Firebase
@@ -103,7 +111,12 @@ export function Signup(props) {
             navigate ("/")
         })
         .catch((error) => {
-            console.log(error.code, error.message)
+            if (error.code === "auth/email-already-in-use") {
+                setErrorMessage ("Email address is already in use.")
+                
+            }
+            else {
+            console.log(error.code, error.message)}
         })
     }
 
@@ -116,6 +129,12 @@ export function Signup(props) {
                         SignUpHandler()
                         } }>
                         <h3>Sign up for an account</h3>
+                        {/* Add the error message rendering here */}
+                    {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
                         {/* input for username */}
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
@@ -125,9 +144,10 @@ export function Signup(props) {
                                 onChange={(evt) => setUserName(evt.target.value)}
                                 value={username}
                                 isValid={validUserName}
+                                isInvalid={(isSubmitClicked && !validUserName) && userNameFeedback !==null}
                             />
-                            <Form.Control.Feedback>Looks good</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">{userNameFeedback}</Form.Control.Feedback>
+                            <Form.Control.Feedback>Looks good</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Email address</Form.Label>
@@ -136,6 +156,8 @@ export function Signup(props) {
                             placeholder="you@domain.com"
                             onChange={(evt) => setEmail(evt.target.value) }
                             value= {email}
+                            isValid={validEmail}
+                            isInvalid={(isSubmitClicked && !validEmail)}
                             /> 
                         </Form.Group>
                         <Form.Group>
@@ -145,6 +167,8 @@ export function Signup(props) {
                             placeholder="Choose a secure password"
                             onChange={(evt) => setPassword(evt.target.value)}
                             value= {password}
+                            isValid={validPassword}
+                            isInvalid={(isSubmitClicked && !validPassword)}
                             /> 
                         </Form.Group>
                         <Button 
@@ -152,7 +176,7 @@ export function Signup(props) {
                             type="submit" 
                             className="my-2 w-100" 
                             size="lg" 
-                            disabled = {(validEmail && validPassword && validUserName) ? false: true}
+                            //disabled = {(validEmail && validPassword && validUserName) ? false: true}
                         >
                             Sign up
                         </Button>

@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button"
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 import { useState, useEffect, useContext } from "react"
@@ -24,7 +24,7 @@ export function Signup (props) {
     const FBDb = useContext(FBDbContext)
     const navigate = useNavigate ()
 
-    const allowedChars = "abcdefghijklmnopqrstuvwxyz1234567890_"
+    const allowedChars = "abcdefghijklmnopqrstuvwxyz1234567890_-"
     // timer variable
     let timer
     // function to check Firebase if user already exists

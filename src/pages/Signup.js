@@ -11,13 +11,13 @@ import { FBDbContext } from "../contexts/FBDbContext"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
 
-export function Signup (props) {
-    const [ email, setEmail] = useState("")
-    const [ password, setPassword ] = useState("")
-    const [ validEmail, setValidEmail ] = useState(false)
-    const [ validPassword, setValidPassword ] = useState( false )
-    const [ username, setUserName ] = useState("")
-    const [ validUserName, setValidUserName ] = useState( false )
+export function Signup(props) {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [validEmail, setValidEmail] = useState(false)
+    const [validPassword, setValidPassword] = useState(false)
+    const [username, setUserName] = useState("")
+    const [validUserName, setValidUserName] = useState(false)
     const [userNameFeedback, setUserNameFeedback] = useState()
 
     const FBAuth = useContext(FBAuthContext)
@@ -69,41 +69,41 @@ export function Signup (props) {
       }     
     }, [username])
     
-    useEffect( () => {
-        if( email.indexOf('@') > 0 ){
-            setValidEmail( true )
+    useEffect(() => {
+        if(email.indexOf('@') > 0){
+            setValidEmail(true)
         }
         else {
-            setValidEmail ( false )
+            setValidEmail (false)
         }
     }, [email] ) 
 
-    useEffect( () => {
-        if(password.length >= 8 ) {
-            setValidPassword( true )
+    useEffect(() => {
+        if(password.length >= 8) {
+            setValidPassword(true)
         }
         else {
-            setValidPassword ( false )
+            setValidPassword (false)
         }
     }, [password])
 
     const AddUserName = async () => {
-        await setDoc(doc(FBDb, "usernames", username ), {
+        await setDoc(doc(FBDb, "usernames", username), {
           name: username
         })
       }
 
     const SignUpHandler = () => {
-        createUserWithEmailAndPassword( FBAuth, email, password )
-        .then ( ( user ) => {
+        createUserWithEmailAndPassword(FBAuth, email, password)
+        .then ((user) => {
             // user is created in Firebase
             // console.log (user)
             // alert user that account has been created
             AddUserName()
             navigate ("/")
         })
-        .catch( (error) => {
-            console.log( error.code, error.message )
+        .catch((error) => {
+            console.log(error.code, error.message)
         })
     }
 
